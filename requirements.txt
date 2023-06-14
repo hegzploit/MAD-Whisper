@@ -1,0 +1,4 @@
+Flask
+Levenshtein
+pydub
+requests

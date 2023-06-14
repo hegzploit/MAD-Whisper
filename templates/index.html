@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload and Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f6f6f6;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-input-label {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .file-input-label:hover {
+            background-color: #45a049;
+        }
+
+        .file-input-label:active {
+            background-color: #3e8e41;
+        }
+
+
+        .file-selected {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .file-submit-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .file-submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .file-submit-button:active {
+            background-color: #003973;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an audio file</h1>
+    <div class="container">
+        <div class="upload-section">
+            <form method="POST" enctype="multipart/form-data">
+                <label for="audio_file" class="file-input-label">Choose a File</label>
+                <input type="file" id="audio_file" name="audio_file" accept=".wav">
+                <span id="file_selected" class="file-selected"></span>
+        </div>
+        <div class="submit-section">
+            <input type="submit" value="Submit" class="file-submit-button">
+            </form>
+        </div>
+    </div>
+    <br>
+    {% if top_swaps %}
+    <div class="container">
+        <h1 class="rtl">تقرير التحليل الصوتي</h1>
+        <table>
+            <tr>
+                <th class="rtl">وصف الحالة</th>
+                <th>عدد الحالات</th>
+            </tr>
+            {% for swap, count in top_swaps %}
+            <tr>
+                <td class="rtl">إبدال بين حرف ال (<b>{{ swap[0] }}</b>) و حرف ال (<b>{{ swap[1] }}</b>)</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+    <script>
+        const fileInput = document.getElementById("audio_file");
+        const fileSelected = document.getElementById("file_selected");
+
+        fileInput.addEventListener("change", () => {
+            if (fileInput.files.length > 0) {
+                fileSelected.textContent = fileInput.files[0].name;
+            } else {
+                fileSelected.textContent = "";
+            }
+        });
+    </script>
+</body>
+</html>

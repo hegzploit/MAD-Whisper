@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Top Letter Swaps</h1>
+    <table>
+        <tr>
+            <th>Swap</th>
+            <th>Count</th>
+        </tr>
+        {% for swap, count in top_swaps %}
+        <tr>
+            <td>{{ swap[0] }} - {{ swap[1] }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
